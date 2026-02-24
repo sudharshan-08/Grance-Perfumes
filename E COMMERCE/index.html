@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRANCE | Luxury Perfumes</title>
+    <meta name="description"
+        content="Discover Grance, a collection of premium, luxury perfumes for men, women, and unisex.">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* Home Page Specific Styles */
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1594035910387-fea477274092?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-subtitle {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            display: block;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-title {
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .hero-btns {
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+
+        /* Features Section */
+        .features {
+            background-color: var(--bg-card);
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .feature-item i {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        .feature-item h3 {
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .feature-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Products Grid */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-subtitle {
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .products-grid {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+
+        .product-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+            group: product;
+            transition: transform var(--transition-normal);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--border-gold);
+        }
+
+        .product-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.1);
+        }
+
+        .product-actions {
+            position: absolute;
+            bottom: -60px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            transition: bottom var(--transition-normal);
+        }
+
+        .product-card:hover .product-actions {
+            bottom: 0;
+        }
+
+        .action-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-light);
+            transition: all var(--transition-fast);
+        }
+
+        .action-btn:hover {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            border-color: var(--accent-gold);
+        }
+
+        .product-info {
+            padding: 25px 20px;
+            text-align: left;
+        }
+
+        .product-category {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .product-title {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .product-title a:hover {
+            color: var(--accent-gold);
+        }
+
+        .product-price {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Discount Badge */
+        .discount-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #ff3333;
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        /* Discount Banner */
+        .discount-banner {
+            padding: 100px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                url('https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover fixed;
+            text-align: center;
+        }
+
+        .discount-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .discount-title {
+            margin-bottom: 20px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .discount-banner {
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Loader -->
+    <div id="loader" class="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="header">
+        <div class="container nav">
+            <a href="index.html" class="brand-logo">GRANCE</a>
+
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link text-gold">Home</a></li>
+                <li><a href="shop.html" class="nav-link">Shop</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <a href="shop.html" class="search-icon"><i class="fas fa-search"></i></a>
+                <a href="cart.html" class="cart-icon-wrapper">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-subtitle">The Essence of Luxury</span>
+                <h1 class="hero-title heading-xl">Discover Your Signature Scent</h1>
+                <p class="hero-desc">Experience an exclusive collection of premium fragrances crafted for those who
+                    appreciate the finer things in life.</p>
+                <div class="hero-btns">
+                    <a href="shop.html" class="btn btn-primary">Shop Now</a>
+                    <a href="#featured" class="btn btn-outline" style="margin-left: 15px;">Discover</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-shipping-fast"></i>
+                    <h3>Free Shipping</h3>
+                    <p>On all orders over ₹5000</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-medal"></i>
+                    <h3>Premium Quality</h3>
+                    <p>100% authentic designer brands</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-headset"></i>
+                    <h3>24/7 Support</h3>
+                    <p>Dedicated luxury concierge</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Selling / Featured Products -->
+    <section id="featured" class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Exquisite Collection</span>
+                <h2 class="heading-lg">Best Selling Perfumes</h2>
+            </div>
+
+            <div class="grid products-grid" id="home-featured-grid">
+                <!-- Dynamically populated via JS -->
+            </div>
+
+            <div class="flex-center" style="margin-top: 50px;">
+                <a href="shop.html" class="btn btn-outline">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discount Banner Section -->
+    <section class="discount-banner">
+        <div class="container">
+            <div class="discount-content">
+                <span class="section-subtitle">Limited Time Offer</span>
+                <h2 class="heading-lg discount-title">Get 20% Off Your First Order</h2>
+                <p class="hero-desc">Subscribe to our newsletter and receive an exclusive discount code along with
+                    luxury fragrance tips.</p>
+                <form action="#" class="newsletter-form" style="max-width: 400px; margin: 0 auto;"
+                    onsubmit="event.preventDefault(); showToast('Subscribed Successfully!');">
+                    <input type="email" placeholder="Enter your email" class="newsletter-input" required>
+                    <button type="submit" class="btn newsletter-btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <!-- ... Footer Content ... -->
+        <div class="container">
+            <div class="grid footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="footer-brand">GRANCE</a>
+                    <p class="footer-desc">Crafting memories and defining moments through the art of fine perfumery.
+                        Experience luxury in every drop.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Privacy</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt text-gold" style="margin-right: 10px;"></i> Mumbai, MH,
+                            India</li>
+                        <li><i class="fas fa-phone text-gold" style="margin-right: 10px;"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope text-gold" style="margin-right: 10px;"></i> info@grance.in</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 GRANCE Luxury Perfumes India. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <a href="#" id="scroll-top" class="scroll-top">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Dynamically render first 4 items from products as best sellers
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('home-featured-grid');
+            const featured = [...products].sort((a, b) => b.rating - a.rating).slice(0, 4); // Top 4 rated
+
+            let html = '';
+            featured.forEach(product => {
+                let discountBadge = '';
+                if (product.oldPrice) {
+                    const discount = Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100);
+                    discountBadge = `<div class="discount-badge">-${discount}%</div>`;
+                }
+
+                html += `
+          <div class="product-card">
+            ${discountBadge}
+            <div class="product-img-wrapper">
+              <img src="${product.image}" alt="${product.name}" class="product-img">
+              <div class="product-actions">
+                <button class="action-btn" title="Add to Cart" onclick='addToCart(${JSON.stringify(product).replace(/'/g, "&#39;")})'><i class="fas fa-cart-plus"></i></button>
+                <a href="product.html?id=${product.id}" class="action-btn" title="Quick View"><i class="fas fa-eye"></i></a>
+              </div>
+            </div>
+            <div class="product-info">
+              <div class="product-category">${product.category}</div>
+              <h3 class="product-title"><a href="product.html?id=${product.id}">${product.name}</a></h3>
+              <div class="product-price">
+                ${formatINR(product.price)}
+                ${product.oldPrice ? `<span style="text-decoration: line-through; color: var(--text-muted); font-size: 0.9rem; margin-left:10px;">${formatINR(product.oldPrice)}</span>` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+            });
+            grid.innerHTML = html;
+        });
+    </script>
+</body>
+
+</html>

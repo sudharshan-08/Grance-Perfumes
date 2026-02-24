@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | GRANCE Luxury Perfumes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Shop Page Specific Styles */
+        .page-header {
+            padding: 150px 0 80px;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)),
+                url('https://images.unsplash.com/photo-1622618957442-70bce7834bc6?ixlib=rb-4.0.3') center/cover no-repeat;
+        }
+
+        .shop-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            padding: 60px 0;
+        }
+
+        .sidebar-widget {
+            background-color: var(--bg-card);
+            padding: 25px;
+            border: 1px solid var(--border-light);
+            margin-bottom: 30px;
+        }
+
+        .widget-title {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .filter-list li {
+            margin-bottom: 12px;
+        }
+
+        .filter-radio {
+            margin-right: 10px;
+            accent-color: var(--accent-gold);
+        }
+
+        .filter-label {
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            transition: color var(--transition-fast);
+        }
+
+        .filter-label:hover {
+            color: var(--accent-gold);
+        }
+
+        .price-range {
+            width: 100%;
+            accent-color: var(--accent-gold);
+            margin: 15px 0;
+        }
+
+        .price-values {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .shop-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-light);
+            padding: 10px 15px;
+            width: 300px;
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            width: 100%;
+            margin-left: 10px;
+            outline: none;
+        }
+
+        .sort-box select {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-light);
+            padding: 10px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 992px) {
+            .shop-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .shop-topbar {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container nav">
+            <a href="index.html" class="brand-logo">GRANCE</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="shop.html" class="nav-link text-gold">Shop</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="cart.html" class="cart-icon-wrapper">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1 class="heading-lg">Our Collection</h1>
+            <p class="text-gold" style="margin-top: 10px; letter-spacing: 2px;">DISCOVER YOUR PERFECT SCENT</p>
+        </div>
+    </div>
+
+    <section class="container shop-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Categories</h3>
+                <ul class="filter-list" id="category-filter-list">
+                    <!-- Dynamically populated -->
+                </ul>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Price Range (INR)</h3>
+                <input type="range" min="500" max="30000" step="500" value="30000" class="price-range" id="priceRange">
+                <div class="price-values">
+                    <span>₹500</span>
+                    <span id="priceVal">₹30,000</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="shop-content">
+            <div class="shop-topbar">
+                <div class="search-box">
+                    <i class="fas fa-search text-gold"></i>
+                    <input type="text" placeholder="Search perfumes..." class="search-input" id="searchInput">
+                </div>
+                <div class="sort-box">
+                    <select id="sortSelect">
+                        <option value="default">Sort by Default</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">Top Rated</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));" id="products-grid">
+                <!-- Dynamically populated -->
+            </div>
+        </main>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container" style="text-align: center; color: var(--text-muted);">
+            <p>&copy; 2026 GRANCE Luxury Perfumes. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/script.js"></script>
+
+    <!-- Shop Filtering Logic -->
+    <script>
+        // State
+        let currentCategory = 'all';
+        let currentMaxPrice = 30000;
+        let searchQuery = '';
+        let currentSort = 'default';
+
+        const productsGrid = document.getElementById('products-grid');
+        const categoryFilterList = document.getElementById('category-filter-list');
+        const priceRange = document.getElementById('priceRange');
+        const priceVal = document.getElementById('priceVal');
+        const searchInput = document.getElementById('searchInput');
+        const sortSelect = document.getElementById('sortSelect');
+
+        // Initialization
+        function initShop() {
+            renderCategoryFilters();
+            applyFilters();
+
+            // Event Listeners
+            priceRange.addEventListener('input', (e) => {
+                currentMaxPrice = parseInt(e.target.value);
+                priceVal.innerText = formatINR(currentMaxPrice);
+                applyFilters();
+            });
+
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase();
+                applyFilters();
+            });
+
+            sortSelect.addEventListener('change', (e) => {
+                currentSort = e.target.value;
+                applyFilters();
+            });
+        }
+
+        // Render Categories dynamically based on products
+        function renderCategoryFilters() {
+            const counts = {
+                all: products.length,
+                men: products.filter(p => p.category === 'men').length,
+                women: products.filter(p => p.category === 'women').length,
+                unisex: products.filter(p => p.category === 'unisex').length
+            };
+
+            const categories = [
+                { id: 'all', label: 'All' },
+                { id: 'men', label: 'Men' },
+                { id: 'women', label: 'Women' },
+                { id: 'unisex', label: 'Unisex' }
+            ];
+
+            let html = '';
+            categories.forEach(cat => {
+                html += `
+          <li>
+            <label class="filter-label">
+              <span>
+                <input type="radio" name="category" class="filter-radio" value="${cat.id}" 
+                       ${currentCategory === cat.id ? 'checked' : ''} 
+                       onchange="setCategory('${cat.id}')"> 
+                ${cat.label}
+              </span>
+              <span>(${counts[cat.id]})</span>
+            </label>
+          </li>
+        `;
+            });
+            categoryFilterList.innerHTML = html;
+        }
+
+        function setCategory(cat) {
+            currentCategory = cat;
+            applyFilters();
+        }
+
+        // Apply all filters and sorts
+        function applyFilters() {
+            let filtered = products.filter(p => {
+                // Category Match
+                if (currentCategory !== 'all' && p.category !== currentCategory) return false;
+
+                // Price Match
+                if (p.price > currentMaxPrice) return false;
+
+                // Search Match
+                if (searchQuery && !p.name.toLowerCase().includes(searchQuery)) return false;
+
+                return true;
+            });
+
+            // Sorting
+            if (currentSort === 'price-low') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (currentSort === 'price-high') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (currentSort === 'rating') {
+                filtered.sort((a, b) => b.rating - a.rating);
+            }
+
+            renderProducts(filtered);
+        }
+
+        // Render the product grid
+        function renderProducts(items) {
+            if (items.length === 0) {
+                productsGrid.innerHTML = '<div class="no-results">No perfumes found matching your criteria.</div>';
+                return;
+            }
+
+            let html = '';
+            items.forEach(product => {
+                html += `
+          <div class="product-card">
+            <div class="product-img-wrapper">
+              <img src="${product.image}" alt="${product.name}" class="product-img">
+              <div class="product-actions">
+                <button class="action-btn" title="Add to Cart" onclick='addToCart(${JSON.stringify(product).replace(/'/g, "&#39;")})'><i class="fas fa-cart-plus"></i></button>
+                <a href="product.html?id=${product.id}" class="action-btn" title="Quick View"><i class="fas fa-eye"></i></a>
+              </div>
+            </div>
+            <div class="product-info" style="padding: 15px;">
+              <div class="product-category">${product.category}</div>
+              <h3 class="product-title" style="font-size:1rem;"><a href="product.html?id=${product.id}">${product.name}</a></h3>
+              <div class="product-price" style="font-size:1.1rem; display: flex; align-items: center; gap: 10px;">
+                ${formatINR(product.price)}
+                ${product.oldPrice ? `<span style="text-decoration: line-through; color: var(--text-muted); font-size: 0.9rem;">${formatINR(product.oldPrice)}</span>` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+            });
+
+            productsGrid.innerHTML = html;
+        }
+
+        // Fire initialization
+        document.addEventListener('DOMContentLoaded', initShop);
+    </script>
+</body>
+
+</html>

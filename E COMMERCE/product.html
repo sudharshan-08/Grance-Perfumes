@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | GRANCE Luxury Perfumes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .product-detail-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            padding: 120px 0 60px;
+        }
+
+        .gallery-main {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-light);
+        }
+
+        .gallery-thumbs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .thumb {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border: 1px solid var(--border-light);
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all var(--transition-fast);
+        }
+
+        .thumb:hover,
+        .thumb.active {
+            opacity: 1;
+            border-color: var(--accent-gold);
+        }
+
+        .prod-category {
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .prod-price {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .ratings {
+            color: var(--accent-gold);
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
+
+        .ratings span {
+            color: var(--text-muted);
+            margin-left: 10px;
+        }
+
+        .prod-desc {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+            align-items: stretch;
+        }
+
+        .qty-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-light);
+            background-color: var(--bg-card);
+        }
+
+        .qty-btn {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            font-size: 1.2rem;
+        }
+
+        .qty-btn:hover {
+            color: var(--accent-gold);
+        }
+
+        .qty-input {
+            width: 50px;
+            text-align: center;
+            color: var(--text-main);
+            font-size: 1.1rem;
+        }
+
+        .btn-add {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .details-accordion {
+            border-top: 1px solid var(--border-light);
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .accordion-head {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .accordion-body {
+            padding-bottom: 20px;
+            color: var(--text-muted);
+            display: none;
+        }
+
+        .accordion-body.show {
+            display: block;
+        }
+
+        .related-section {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-light);
+        }
+
+        @media (max-width: 768px) {
+            .product-detail-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header bg-darker" style="background-color: var(--bg-darker);">
+        <div class="container nav">
+            <a href="index.html" class="brand-logo">GRANCE</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="shop.html" class="nav-link text-gold">Shop</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="cart.html" class="cart-icon-wrapper">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="container product-detail-layout" id="product-container">
+        <!-- Dynamically loaded -->
+    </section>
+
+    <section class="container related-section">
+        <h2 class="heading-md" style="margin-bottom: 40px; text-align: center;">You May Also Like</h2>
+        <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));" id="related-grid">
+            <!-- Dynamically loaded -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container" style="text-align: center; color: var(--text-muted);">
+            <p>&copy; 2026 GRANCE Luxury Perfumes India. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Get ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id') || 'm1'; // fallback to first item
+
+        // Find Product
+        let product = products.find(p => p.id === productId);
+        if (!product) product = products[0];
+
+        // Render Product Details
+        const container = document.getElementById('product-container');
+
+        document.title = `${product.name} | GRANCE Luxury Perfumes`;
+
+        let discountHtml = '';
+        if (product.oldPrice) {
+            discountHtml = `<span style="text-decoration: line-through; color: var(--text-muted); font-size: 1.2rem;">${formatINR(product.oldPrice)}</span>`;
+        }
+
+        container.innerHTML = `
+      <div class="gallery">
+        <img src="${product.image}" id="mainImage" class="gallery-main" alt="${product.name}">
+        <div class="gallery-thumbs">
+          <img src="${product.image}" class="thumb active" onclick="changeImage(this)">
+          <img src="https://images.unsplash.com/photo-1594035910387-fea477274092?ixlib=rb-4.0.3&w=400&q=80" class="thumb" onclick="changeImage(this)">
+          <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?ixlib=rb-4.0.3&w=400&q=80" class="thumb" onclick="changeImage(this)">
+          <img src="https://images.unsplash.com/photo-1622618957442-70bce7834bc6?ixlib=rb-4.0.3&w=400&q=80" class="thumb" onclick="changeImage(this)">
+        </div>
+      </div>
+      <div class="product-summary">
+        <div class="prod-category">${product.category} Collection</div>
+        <h1 class="heading-lg">${product.name}</h1>
+        <div class="ratings">
+          ${getStars(product.rating)}
+          <span>(${Math.floor(Math.random() * 200 + 50)} Reviews)</span>
+        </div>
+        <div class="prod-price">
+          ${formatINR(product.price)}
+          ${discountHtml}
+        </div>
+        <p class="prod-desc">${product.description}</p>
+        
+        <div class="actions">
+          <div class="qty-selector">
+            <button class="qty-btn" onclick="decreaseQty()">-</button>
+            <input type="number" class="qty-input" id="qty-input" value="1" min="1" readonly>
+            <button class="qty-btn" onclick="increaseQty()">+</button>
+          </div>
+          <button class="btn btn-primary btn-add" onclick='handleAdd()'>
+            <i class="fas fa-shopping-cart"></i> Add to Cart
+          </button>
+        </div>
+
+        <div class="details-accordion">
+          <div class="accordion-item">
+            <div class="accordion-head" onclick="toggleAcc(this)">
+              <span>Product Details</span>
+              <i class="fas fa-plus"></i>
+            </div>
+            <div class="accordion-body">
+              <strong>Category:</strong> ${product.category}<br>
+              <strong>Format:</strong> Spray<br>
+              <strong>Size:</strong> 100ml / 3.4 oz<br>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-head" onclick="toggleAcc(this)">
+              <span>Shipping in India</span>
+              <i class="fas fa-plus"></i>
+            </div>
+            <div class="accordion-body">
+              Free expedited shipping pan-India on all orders above ₹5000. Cash on Delivery available at select pincodes.
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+        // Render Related Products
+        const relatedGrid = document.getElementById('related-grid');
+        const related = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
+
+        let relatedHtml = '';
+        related.forEach(rel => {
+            relatedHtml += `
+        <div class="product-card">
+          <div class="product-img-wrapper">
+            <img src="${rel.image}" alt="${rel.name}" class="product-img">
+            <div class="product-actions">
+              <button class="action-btn" title="Add to Cart" onclick='addToCart(${JSON.stringify(rel).replace(/'/g, "&#39;")})'><i class="fas fa-cart-plus"></i></button>
+              <a href="product.html?id=${rel.id}" class="action-btn" title="Quick View"><i class="fas fa-eye"></i></a>
+            </div>
+          </div>
+          <div class="product-info" style="padding: 15px;">
+            <h3 class="product-title" style="font-size:1rem;"><a href="product.html?id=${rel.id}">${rel.name}</a></h3>
+            <div class="product-price" style="font-size:1.1rem;">${formatINR(rel.price)}</div>
+          </div>
+        </div>
+      `;
+        });
+        relatedGrid.innerHTML = relatedHtml;
+
+        // Helper functions
+        function getStars(rating) {
+            let html = '';
+            for (let i = 1; i <= 5; i++) {
+                if (rating >= i) html += '<i class="fas fa-star"></i>';
+                else if (rating >= i - 0.5) html += '<i class="fas fa-star-half-alt"></i>';
+                else html += '<i class="far fa-star"></i>';
+            }
+            return html;
+        }
+
+        function changeImage(element) {
+            document.getElementById('mainImage').src = element.src;
+            document.querySelectorAll('.thumb').forEach(th => th.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function toggleAcc(element) {
+            const body = element.nextElementSibling;
+            const icon = element.querySelector('i');
+            body.classList.toggle('show');
+            if (body.classList.contains('show')) {
+                icon.classList.replace('fa-plus', 'fa-minus');
+            } else {
+                icon.classList.replace('fa-minus', 'fa-plus');
+            }
+        }
+
+        function decreaseQty() {
+            const input = document.getElementById('qty-input');
+            if (input.value > 1) input.value--;
+        }
+
+        function increaseQty() {
+            document.getElementById('qty-input').value++;
+        }
+
+        function handleAdd() {
+            const qty = parseInt(document.getElementById('qty-input').value);
+            addToCart({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                image: product.image
+            }, qty);
+        }
+    </script>
+</body>
+
+</html>

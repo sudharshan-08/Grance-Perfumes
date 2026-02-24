@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | GRANCE Luxury Perfumes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .page-header {
+            padding: 120px 0 60px;
+            text-align: center;
+            background-color: var(--bg-darker);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 50px;
+            padding: 60px 0;
+        }
+
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cart-table th {
+            text-align: left;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .cart-item {
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .cart-item td {
+            padding: 25px 0;
+            vertical-align: middle;
+        }
+
+        .item-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .item-img {
+            width: 100px;
+            height: 120px;
+            object-fit: cover;
+            border: 1px solid var(--border-light);
+        }
+
+        .item-title {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .item-title:hover {
+            color: var(--accent-gold);
+        }
+
+        .qty-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-light);
+            width: max-content;
+        }
+
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+        }
+
+        .qty-btn:hover {
+            color: var(--accent-gold);
+        }
+
+        .qty-input {
+            width: 40px;
+            text-align: center;
+            color: var(--text-main);
+        }
+
+        .btn-remove {
+            color: var(--text-muted);
+            transition: color var(--transition-fast);
+        }
+
+        .btn-remove:hover {
+            color: #ff4d4d;
+        }
+
+        .cart-summary {
+            background-color: var(--bg-card);
+            padding: 30px;
+            border: 1px solid var(--border-light);
+            height: max-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .summary-total span:last-child {
+            color: var(--accent-gold);
+        }
+
+        .btn-checkout {
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .empty-cart-msg {
+            text-align: center;
+            padding: 60px 0;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 992px) {
+            .cart-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-table th.col-price,
+            .cart-table td.col-price {
+                display: none;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .item-img {
+                width: 70px;
+                height: 90px;
+            }
+
+            .item-info {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header bg-darker" style="background-color: var(--bg-darker);">
+        <div class="container nav">
+            <a href="index.html" class="brand-logo">GRANCE</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="shop.html" class="nav-link">Shop</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="cart.html" class="cart-icon-wrapper text-gold">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1 class="heading-lg">Your Shopping Cart</h1>
+        </div>
+    </div>
+
+    <section class="container cart-layout">
+        <!-- Cart Items -->
+        <div class="cart-items">
+            <table class="cart-table" id="cart-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th class="col-price">Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="cart-tbody">
+                    <!-- Dynamically populated via JS -->
+                </tbody>
+            </table>
+            <div id="empty-cart-container" style="display: none;">
+                <p class="empty-cart-msg">Your cart is currently empty. <br><br> <a href="shop.html"
+                        class="btn btn-primary">Continue Shopping</a></p>
+            </div>
+        </div>
+
+        <!-- Cart Summary -->
+        <div class="cart-summary">
+            <h3 class="summary-title">Order Summary</h3>
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="summary-subtotal">₹0</span>
+            </div>
+            <div class="summary-row">
+                <span>Shipping</span>
+                <span id="summary-shipping">Free</span>
+            </div>
+            <div class="summary-row">
+                <span>GST (18%)</span>
+                <span id="summary-tax">₹0</span>
+            </div>
+            <div class="summary-total">
+                <span>Total</span>
+                <span id="summary-total">₹0</span>
+            </div>
+            <a href="checkout.html" class="btn btn-primary btn-checkout" id="btn-checkout">Proceed to Checkout</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container" style="text-align: center; color: var(--text-muted);">
+            <p>&copy; 2026 GRANCE Luxury Perfumes India. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/cart.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        function renderCartPage() {
+            const tbody = document.getElementById('cart-tbody');
+            const emptyContainer = document.getElementById('empty-cart-container');
+            const table = document.getElementById('cart-table');
+            const btnCheckout = document.getElementById('btn-checkout');
+
+            if (cart.length === 0) {
+                table.style.display = 'none';
+                emptyContainer.style.display = 'block';
+                btnCheckout.style.pointerEvents = 'none';
+                btnCheckout.style.opacity = '0.5';
+                updateTotals();
+                return;
+            }
+
+            table.style.display = 'table';
+            emptyContainer.style.display = 'none';
+            btnCheckout.style.pointerEvents = 'auto';
+            btnCheckout.style.opacity = '1';
+
+            let html = '';
+            cart.forEach(item => {
+                const subtotal = item.price * item.quantity;
+                html += `
+          <tr class="cart-item">
+            <td>
+              <div class="item-info">
+                <img src="${item.image}" alt="${item.name}" class="item-img">
+                <div>
+                  <a href="product.html?id=${item.id}" class="item-title">${item.name}</a>
+                </div>
+              </div>
+            </td>
+            <td class="col-price">${formatINR(item.price)}</td>
+            <td>
+              <div class="qty-control">
+                <button class="qty-btn" onclick="updateCartItem('${item.id}', -1)">-</button>
+                <input type="text" class="qty-input" value="${item.quantity}" readonly>
+                <button class="qty-btn" onclick="updateCartItem('${item.id}', 1)">+</button>
+              </div>
+            </td>
+            <td>${formatINR(subtotal)}</td>
+            <td>
+              <button class="btn-remove" onclick="removeCartItem('${item.id}')">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+            });
+
+            tbody.innerHTML = html;
+            updateTotals();
+        }
+
+        function updateCartItem(id, change) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                updateQuantity(id, item.quantity + change);
+                renderCartPage();
+            }
+        }
+
+        function removeCartItem(id) {
+            removeFromCart(id);
+            renderCartPage();
+        }
+
+        function updateTotals() {
+            const sub = getCartTotal();
+            const tax = sub * 0.18; // 18% GST for India
+            const total = sub + tax;
+
+            document.getElementById('summary-subtotal').innerText = formatINR(sub);
+
+            if (sub > 0 && sub < 5000) {
+                document.getElementById('summary-shipping').innerText = formatINR(500);
+                document.getElementById('summary-total').innerText = formatINR(total + 500);
+            } else {
+                document.getElementById('summary-shipping').innerText = 'Free';
+                document.getElementById('summary-total').innerText = formatINR(total);
+            }
+
+            document.getElementById('summary-tax').innerText = formatINR(tax);
+        }
+
+        // Initialize rendering
+        document.addEventListener('DOMContentLoaded', renderCartPage);
+    </script>
+</body>
+
+</html>
