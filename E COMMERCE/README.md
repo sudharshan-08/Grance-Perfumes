@@ -1,64 +1,72 @@
-# GRANCE Luxury Perfumes 
+GRANCE Luxury Perfumes
+GRANCE Luxury Perfumes is a modern e-commerce website designed for a premium perfume brand. The website focuses on elegant design, smooth user experience, and responsive layout across all devices.
 
-A modern, high-end e-commerce website for a luxury perfume brand. Built with a focus on premium aesthetics and seamless user experience.
+Project Overview
+This project showcases a luxury perfume shopping website with dynamic product listing, shopping cart functionality, filtering options, and a complete checkout flow. The design uses a dark theme with gold accents to create a high-end brand feel.
 
-## ✨ Features
+Features
+Premium Design: Elegant dark theme with gold color styling for a luxury appearance
 
-- **Premium UI/UX:** Sophisticated dark theme with elegant gold accents, designed to convey luxury.
-- **Responsive Design:** Fully responsive layout that looks great on all devices (mobile, tablet, desktop).
-- **Dynamic Products:** Products are dynamically rendered using JavaScript to allow easy updates and management.
-- **Functional Shopping Cart:** Users can add products to their cart, view cart details, and see the total price calculated in Indian Rupees (₹) including 18% GST and shipping logic.
-- **Search & Filtering:** Advanced sorting and dynamic filtering on the Shop page to easily find the perfect scent.
-- **Clean Animations:** Smooth CSS transitions and hover effects for an interactive, premium feel.
-- **Multi-page Layout:** Includes Home, Shop, About, Contact, Cart, and Checkout pages.
+Fully Responsive: Works seamlessly on mobile, tablet, and desktop
 
-## 🛠️ Technologies Used
+Dynamic Product Loading: Products are managed using JavaScript for easy updates
 
-- **HTML5:** Semantic HTML structure.
-- **CSS3:** Custom styling with Vanilla CSS (No frameworks) utilizing CSS Variables for consistent theming and Flexbox/Grid for layout.
-- **JavaScript (Vanilla):** DOM manipulation, cart logic, dynamic product rendering, and interactive UI elements.
-- **Font Awesome:** For scalable vector icons.
+Shopping Cart System: Add products to cart, view items, and calculate total price in INR (including GST and shipping)
 
-## 🚀 Getting Started
+Search and Filter: Users can sort and filter products on the Shop page
 
-To view the project locally, you simply need to open the `index.html` file in your preferred web browser. No complex build tools or servers are required!
+Smooth Animations: Clean hover effects and transitions
 
-1. Clone this repository:
-```bash
-git clone https://github.com/your-username/grance-perfumes.git
-```
-2. Navigate into the project directory:
-```bash
-cd grance-perfumes
-```
-3. Open `index.html` in your browser.
+Multi-Page Layout: Includes Home, Shop, About, Contact, Cart, and Checkout pages
 
-## 📁 Project Structure
+Technologies Used
+HTML5 – Structure and layout of pages
 
-```text
-├── css/
-│   └── style.css       # Main stylesheet containing global styles, variables, and responsive rules
-├── js/
-│   ├── products.js     # Array of product data for dynamic rendering
-│   ├── cart.js         # Shopping cart logic and local storage management
-│   └── script.js       # Global scripts (e.g., mobile navigation, interactions)
-├── images/             # Product and promotional images
-├── index.html          # Homepage
-├── shop.html           # Product catalog with filtering and sorting
-├── about.html          # Brand story and heritage
-├── contact.html        # Contact form and location info
-├── cart.html           # Shopping cart view
-└── checkout.html       # Checkout process simulation
-```
+CSS3 – Styling using Flexbox and Grid
 
-## 📸 Screenshots
+JavaScript (Vanilla) – Product rendering, cart logic, and interactivity
 
-*(Add screenshots of your application here to showcase the beautiful design!)*
+Font Awesome – Icons
 
-## 🤝 Contributing
+How to Run the Project
+No installation or setup is required.
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/your-username/grance-perfumes/issues).
+Download or copy the project folder.
 
-## 📝 License
+Open the folder.
 
-This project is open-source and available under the [MIT License](LICENSE).
+Double-click on index.html to open it in your browser.
+
+Project Structure
+Code
+
+css/
+  style.css        - Main stylesheet
+
+js/
+  products.js      - Product data
+  cart.js          - Cart functionality
+  script.js        - Main JavaScript logic
+
+images/            - Product and UI images
+
+index.html         - Home page
+shop.html          - Shop page
+about.html         - About page
+contact.html       - Contact page
+cart.html          - Cart page
+checkout.html      - Checkout page
+Screenshots
+You can add screenshots of the website interface here to showcase the design and features.
+
+Future Improvements
+User authentication system
+
+Payment gateway integration
+
+Backend database integration
+
+Admin dashboard for managing products
+
+License
+This project is open-source and available under the MIT License.
